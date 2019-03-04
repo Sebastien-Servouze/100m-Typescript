@@ -20,7 +20,7 @@ module.exports = {
                 use: 'ts-loader'
             },
             {
-                test: [ /\.vert$/, /\.frag$/ ],
+                test: [/\.vert$/, /\.frag$/],
                 use: 'raw-loader'
             }
         ]
@@ -29,37 +29,38 @@ module.exports = {
         minimize: true,
         splitChunks: {
             cacheGroups: {
-                commons: { 
-                    test: /[\\/]node_modules[\\/]/, 
-                    name: "vendors", 
-                    chunks: "all" 
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
                 }
             }
         }
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: ['.tsx', '.ts', '.js']
     },
     stats: false,
     plugins: [
         new webpack.DefinePlugin({
             'typeof SHADER_REQUIRE': JSON.stringify(false),
             'typeof CANVAS_RENDERER': JSON.stringify(true),
-            'typeof WEBGL_RENDERER': JSON.stringify(true)
+            'typeof WEBGL_RENDERER': JSON.stringify(true),
+            'PLUGIN_FBINSTANT': JSON.stringify(true)
         }),
         new CopyWebpackPlugin(
-        [
-            {
-                from: './assets',
-                to: './assets',
-                force: true
-            },
-            {
-                from: './app.css',
-                to: './app.css',
-                force: true
-            }
-        ]),
+            [
+                {
+                    from: './assets',
+                    to: './assets',
+                    force: true
+                },
+                {
+                    from: './app.css',
+                    to: './app.css',
+                    force: true
+                }
+            ]),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html'
