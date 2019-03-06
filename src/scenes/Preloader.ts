@@ -9,10 +9,18 @@ export class Preloader extends Phaser.Scene
 
     preload() 
     {
-        FB.instance.startGameAsync().then(() =>
+        this.load.on('progress', (value : number) =>
         {
-            this.scene.start('main');
-        });
+            FB.instance.setLoadingProgress(value * 100);
+        }, this);
+
+        this.load.on('complete', () =>
+        {
+                FB.instance.startGameAsync().then(this.scene.start('main'));
+        }, this);
+
+        // Loading
+        this.load.image('loading', './assets/images/loading.png');
     }
 
 }

@@ -19,13 +19,13 @@ export class Leaderboard
      * METHODES
      */
 
-    public refresh(onceRefreshDone?: Function)
+    public refresh(leaderboardName: string = this.name, onceRefreshDone?: Function)
     {
         // Garde fou pour le leaderboard contextuel
         if (this.name.includes('null'))
             return null;
 
-        FB.instance.getLeaderboardAsync(this.name).then((leaderboard: any) => 
+        FB.instance.getLeaderboardAsync(leaderboardName).then((leaderboard: any) => 
         {
             var completion = 0;
 
